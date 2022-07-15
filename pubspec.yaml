@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   image_picker: ^0.8.5+3
   enough_giphy_flutter: ^0.3.0
+  country_picker: ^2.0.15
 
 dev_dependencies:
   flutter_test:
