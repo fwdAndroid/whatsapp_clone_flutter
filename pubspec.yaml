@@ -33,6 +33,7 @@ dependencies:
   enough_giphy_flutter: ^0.3.0
   firebase_auth: ^3.4.2
   firebase_core: ^1.19.2
+  flutter_riverpod: ^2.0.0-dev.9
   flutter:
     sdk: flutter
   image_picker: ^0.8.5+3
