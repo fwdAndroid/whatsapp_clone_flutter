@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:whatsapp_clone_flutter/common/widgets/error.dart';
 import 'package:whatsapp_clone_flutter/features/auth/screens/login_screen.dart';
 import 'package:whatsapp_clone_flutter/features/auth/screens/otp_screen.dart';
+import 'package:whatsapp_clone_flutter/features/auth/screens/user_information_screen.dart';
 
 
 Route<dynamic> generateRoute(RouteSettings settings) {
@@ -19,10 +20,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           verificationId: verificationId,
         ),
       );
-    // case UserInformationScreen.routeName:
-    //   return MaterialPageRoute(
-    //     builder: (context) => const UserInformationScreen(),
-    //   );
+    case UserInformationScreen.routeName:
+      return MaterialPageRoute(
+        builder: (context) => const UserInformationScreen(),
+      );
     // case SelectContactsScreen.routeName:
     //   return MaterialPageRoute(
     //     builder: (context) => const SelectContactsScreen(),

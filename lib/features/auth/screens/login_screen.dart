@@ -1,40 +1,28 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/animation/animation_controller.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/ticker_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone_flutter/common/utils/colors.dart';
+import 'package:whatsapp_clone_flutter/common/utils/utils.dart';
 import 'package:whatsapp_clone_flutter/common/widgets/custom_button.dart';
 import 'package:whatsapp_clone_flutter/features/auth/controllers/auth_controller.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
-    static const routeName = '/login-screen';
-
+  static const routeName = '/login-screen';
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
   ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends ConsumerState<LoginScreen>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(vsync: this);
-  }
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  final phoneController = TextEditingController();
+  Country? country;
 
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
+    phoneController.dispose();
   }
-   Country? country;
-         final phoneController = TextEditingController();
 
   void pickCountry() {
     showCountryPicker(
@@ -46,25 +34,27 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
         });
   }
 
-  void sendPhoneNumber(){
+  void sendPhoneNumber() {
     String phoneNumber = phoneController.text.trim();
-    if(country != null && phoneNumber.isNotEmpty){
-      ref.read(AuthControllerProvider).signInWithPhone(context, '+${country!.phoneCode}phoneNumber');
+    if (country != null && phoneNumber.isNotEmpty) {
+      ref
+          .read(AuthControllerProvider)
+          .signInWithPhone(context, '+${country!.phoneCode}$phoneNumber');
+    } else {
+      showSnackBar(context: context, content: 'Fill out all the fields');
     }
   }
 
   @override
   Widget build(BuildContext context) {
- 
-
-        final size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
- appBar: AppBar(
+      appBar: AppBar(
         title: const Text('Enter your phone number'),
         elevation: 0,
         backgroundColor: backgroundColor,
-      ),   
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(18.0),
@@ -97,9 +87,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
               SizedBox(
                 width: 90,
                 child: CustomButton(
-                  onPressed: () {
-                    
-                  },
+                  onPressed: sendPhoneNumber,
                   text: 'NEXT',
                 ),
               ),
@@ -107,7 +95,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen>
           ),
         ),
       ),
-    
-       );
+    );
   }
 }
