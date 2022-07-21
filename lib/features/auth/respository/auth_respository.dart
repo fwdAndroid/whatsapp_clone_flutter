@@ -105,4 +105,16 @@ class AuthRespository{
     }
   }
 
+  //AuthState
+  Future<UserModel?> getCurrentUserData() async {
+    var userData =
+        await firebaseFirestore.collection('users').doc(firebaseAuth.currentUser?.uid).get();
+
+    UserModel? user;
+    if (userData.data() != null) {
+      user = UserModel.fromMap(userData.data()!);
+    }
+    return user;
+  }
+
 }

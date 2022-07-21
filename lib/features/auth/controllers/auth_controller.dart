@@ -3,11 +3,18 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:whatsapp_clone_flutter/features/auth/respository/auth_respository.dart';
+import 'package:whatsapp_clone_flutter/models/user_models.dart';
 
 final AuthControllerProvider = Provider(((ref) {
   final authRespository = ref.watch(AuthRespositoryProvider);
   return AuthController(authRespository: authRespository,ref: ref); 
 }));
+
+final userDataAuthProvider = FutureProvider((ref) {
+  final authController = ref.watch(AuthControllerProvider);
+  return authController.getUserData();
+});
+
 
 class AuthController{
   final AuthRespository authRespository;
@@ -38,5 +45,10 @@ class AuthController{
       ref: ref,
       context: context,
     );
+  }
+
+   Future<UserModel?> getUserData() async {
+    UserModel? user = await authRespository.getCurrentUserData();
+    return user;
   }
 }
